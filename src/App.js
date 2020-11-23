@@ -1,7 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
+import { getData } from './utils.js/api-client';
 
 function App() {
+  
   return (
     <div className="App">
       <header className="App-header">
