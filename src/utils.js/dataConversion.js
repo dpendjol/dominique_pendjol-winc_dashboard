@@ -14,3 +14,59 @@ export const convertToObject = (data) => {
         };
     });
 }
+
+/**
+ * Gets a the assignment names that are in the data
+ * @param {Array} data 
+ */
+export const getAssignmentNames = (data) => {
+    return data.reduce((uniqueAssignments, next) => {
+        if (!uniqueAssignments.includes(next[1])) {
+            return [...uniqueAssignments, next[1]];
+        }
+        return uniqueAssignments;
+    },[]);
+}
+
+/**
+ * 
+ * @param {Array} data contains array-container with arrays.
+ * @param {Array} assignments containing string of unique assignment names
+ * @returns {Array} returns an array with objects containing keys: assignment, gradeDifficulty, gradeFun
+ */
+export const calculateAveragePerAssignment = (data, assignments) => {
+    let myObject =[];
+    assignments.forEach(assignment => {
+        let i = 0;
+         const totals = data.reduce((total, next) => {
+            if (next.includes(assignment)) {
+                total[0] = total[0] + parseInt(next[2], 10);
+                total[1] = total[1] + parseInt(next[3], 10);
+                i = i + 1;
+            }
+            return total;
+        }, [0, 0])
+        myObject = [...myObject, {assignment: assignment, gradeDifficulty: totals[0] / i, gradeFun: totals[1] / i}]
+    })
+    return myObject;
+}
+
+/** OBSOLETE!!
+ * converts the above dataset to a object containing 2 array's to display on ChartBar
+ * @param {Array} data 
+ */
+export const buildChartBarDataSet = (data) => {
+    let difficulty = [];
+    let fun = [];
+    data.map(item => {
+        difficulty = [...difficulty, {
+                x: item.assignment, 
+                y: item.gradeDifficulty}
+            ] 
+        fun =  [...fun, {
+                x: item.assignment, 
+                y: item.gradeFun}
+            ] 
+        })
+    return {difficulty: difficulty, fun: fun}
+}
