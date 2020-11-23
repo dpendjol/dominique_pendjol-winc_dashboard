@@ -70,3 +70,17 @@ export const buildChartBarDataSet = (data) => {
         })
     return {difficulty: difficulty, fun: fun}
 }
+
+/**
+ * Gets a the student names that are in the data
+ * @param {Array} data
+ * @return {Array} list of students 
+ */
+export const getListOfStudents = (data) => {
+    return data.reduce((uniqueStudents, next) => {
+        if (!uniqueStudents.includes(next[0])) {
+            return [...uniqueStudents, next[0]];
+        }
+        return uniqueStudents;
+    },[])
+}
