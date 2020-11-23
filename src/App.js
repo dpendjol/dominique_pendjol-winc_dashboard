@@ -1,12 +1,14 @@
-import logo from './logo.svg';
+
 import './App.css';
 import { getMockData } from './utils.js/api-client';
+
 import { 
   convertToObject, 
   getAssignmentNames, 
   calculateAveragePerAssignment, 
   buildChartBarDataSet
 } from './utils.js/dataConversion'
+
 import {
   VictoryChart,
   VictoryGroup,
@@ -15,35 +17,24 @@ import {
 } from 'victory'
 
 function App() {
-  const data = calculateAveragePerAssignment(getMockData(), getAssignmentNames(getMockData()));
-  const dataChart = buildChartBarDataSet(data)
+  const mockData = getMockData();
+  const assignmentNames = getAssignmentNames(mockData);
+  const data = calculateAveragePerAssignment(mockData, assignmentNames);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-
-      <VictoryChart>
+      <VictoryChart domainPadding={{x: [50, 25]}}>
         <VictoryGroup offset={2.5}
-          colorScale={["red", "green"]}
+          colorScale={["red", "yellow"]}
         >
           <VictoryBar
+            sortKey="x"
             data={data}
             x="assignment"
             y="gradeDifficulty"
           />
           <VictoryBar
+          sortKey="x"
             data={data}
             x="assignment"
             y="gradeFun"
@@ -52,19 +43,19 @@ function App() {
         <VictoryAxis
           label="assignment"
           style={{
-            axisLabel: { padding: 30 },
-            tickLabels: {fontSize: 3, padding: 5, angle: 90}
+            axisLabel: { padding: 20 },
+            tickLabels: {fontSize: 3, padding: 5, angle: 90},
+            data: {stroke: "#000", strokeWidth: 10}
           }}
         />
         <VictoryAxis dependentAxis
           label="grade"
           style={{
-            axisLabel: { padding: 40 },
+            axisLabel: { padding: 20 },
             tickLabels: {fontSize: 5, padding: 5}
           }}
         />
       </VictoryChart>
-
     </div>
   );
 }
