@@ -1,9 +1,10 @@
 import logo from './logo.svg';
 import './App.css';
-import { getData } from './utils.js/api-client';
+import { getMockData } from './utils.js/api-client';
+import { convertToObject } from './utils.js/dataConversion'
 
 function App() {
-  
+  console.log(convertToObject(getMockData()));
   return (
     <div className="App">
       <header className="App-header">

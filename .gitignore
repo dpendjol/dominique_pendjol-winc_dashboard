@@ -24,5 +24,4 @@ yarn-error.log*
 
 # own
 api-info.js
-.gitignore
 .eslintcache
