@@ -1,4 +1,5 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 
 import {
   VictoryChart,
@@ -11,7 +12,13 @@ import {
  * Array of averages
  * @param {Array} data 
  */
-const ChartBar = ({data}) => {
+const ChartBar = ({data, getData}) => {
+    const {Username} = useParams()
+
+    if (data === undefined) {
+      data = getData(Username)
+    }
+    
     return (
         <VictoryChart domainPadding={{x: [50, 25]}}>
         <VictoryGroup offset={2.5}

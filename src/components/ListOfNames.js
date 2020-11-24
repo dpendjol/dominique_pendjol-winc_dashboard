@@ -1,6 +1,6 @@
 import React from 'react';
 import ListItem from './ListItem';
-
+import {Link} from 'react-router-dom'
 const ListOfNames = ({listOfNames}) => {
     const listOfItems = (
         listOfNames.sort().map(item => {
@@ -10,6 +10,7 @@ const ListOfNames = ({listOfNames}) => {
 
     return (
         <ul>
+            <Link to="/"><li value="">Home</li></Link>
             {listOfItems}
         </ul>
     )

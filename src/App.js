@@ -7,6 +7,7 @@ import {
   getAssignmentNames, 
   calculateAveragePerAssignment,
   getListOfStudents,
+  filterData,
 } from './utils.js/dataConversion'
 
 import ListOfNames from './components/ListOfNames';
@@ -25,16 +26,19 @@ const H1 = () => {
   return <h1>{Username}</h1>
 }
 
-const H2 = () => {
-  const { Username, Surname} = useParams()
-  return <p>{Username} {Surname}</p>
-}
-
 function App() {
   const mockData = getMockData();
   const assignments = getAssignmentNames(mockData)
   const averages = calculateAveragePerAssignment(mockData, assignments)
   const listOfNames = getListOfStudents(mockData);
+ 
+  const getData= (filtered) => {
+    const mockData = getMockData();
+    const assignments = getAssignmentNames(mockData)
+    const filteredData = filterData(mockData, filtered)
+    return calculateAveragePerAssignment(filteredData, assignments)
+  }
+
   return (
     <div className="App">
       <Router>
@@ -45,10 +49,11 @@ function App() {
           <Switch>
             <Route exact path="/:Username">
               <H1 />
-              <ChartBar data={averages} />
+              <ChartBar getData={getData} />
             </Route>
-            <Route path='/:Username/:Surname'>
-              <H2 />
+            <Route exact path='/'>
+              <H1 />
+              <ChartBar data={averages} />
             </Route>
           </Switch>
         </main>

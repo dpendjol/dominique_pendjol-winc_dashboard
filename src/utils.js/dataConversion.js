@@ -84,3 +84,18 @@ export const getListOfStudents = (data) => {
         return uniqueStudents;
     },[])
 }
+
+/**
+ * Filters out the sub-array's from the user name
+ * @param {Array} data 
+ * @param {String} name 
+ * @returns array with array's that contain the grades per assignment from one student, name
+ */
+export const filterData = (data, name) => {
+    return data.reduce((dataName, next) => {
+        if (next[0] === name) {
+            return [...dataName, next]
+        }
+        return dataName;
+    },[])
+}
