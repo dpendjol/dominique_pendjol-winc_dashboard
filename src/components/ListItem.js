@@ -1,8 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 
 const ListItem = ({value}) => {
+    const link = '/' + value;
     return (
-        <li>{value}</li>
+        <Link to={link}>
+            <li>{value}</li>
+        </Link>
     )
 }
 
