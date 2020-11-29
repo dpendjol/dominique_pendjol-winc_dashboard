@@ -1,0 +1,86 @@
+/*
+Primary: 2196f3
+Primary-light: 6ec6ff
+Primary-dark: 0069c0
+Text-dark: black
+Text-light: smokewhite
+*/
+
+$primary: #2196f3;
+$primary-light: #6ec6ff;
+$primary-dark: #0069c0;
+$text-color-light: whitesmoke;
+$text-color-dark: black;
+
+body {
+    background-color: $primary-light;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+}
+
+h1 {
+    margin: 0 auto;
+    color: $primary-dark;
+    font-size: 50px;
+    font-family: 'Karla', sans-serif;
+    text-transform: uppercase;
+}
+
+img {
+    width: 100px;
+}
+
+.navigation form label {
+    display: block;
+}
+
+.navigation {
+    
+}
+
+.studentList {
+    list-style-type: none;
+    margin: 10px 15px 0;
+    padding: 0;
+    width: 100px;
+    height: 100vh;
+}
+
+.studentList a {
+    color: $primary-dark;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.studentList a:hover {
+    color: $primary;
+}
+
+.studentList .current {
+    text-decoration: underline;
+}
+
+.main {
+    display: block;
+    width: 80vw;
+    text-align: center;
+    & h2 {
+        margin: 0;
+        padding: 0;
+        color: $primary-dark;
+    }
+}
+
+.container {
+    display: flex;
+}
+
+.chartcontainer {
+    background-color: white;
+    border-radius: 25px;
+    margin: 15px;
+}

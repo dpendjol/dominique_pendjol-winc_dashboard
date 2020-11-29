@@ -9,7 +9,7 @@ const ListOfNames = ({listOfNames}) => {
     )
 
     return (
-        <ul>
+        <ul className="studentList">
             <Link to="/"><li value="">Home</li></Link>
             {listOfItems}
         </ul>

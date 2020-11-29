@@ -25,3 +25,4 @@ yarn-error.log*
 # own
 api-info.js
 .eslintcache
+.notes

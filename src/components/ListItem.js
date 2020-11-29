@@ -1,12 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 const ListItem = ({value}) => {
     const link = '/' + value;
     return (
-        <Link to={link}>
+        <NavLink activeClassName="current" to={link}>
             <li>{value}</li>
-        </Link>
+        </NavLink>
     )
 }
 

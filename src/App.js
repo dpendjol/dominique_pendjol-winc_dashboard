@@ -21,9 +21,20 @@ import {
 
 import ChartBar from './ChartBar'
 
+import logo from './logo_winc.png';
+import React, { createContext, useState } from 'react';
+import ToggleGraphBars from './components/ToggleGraphBars';
+
+export const ToggleBars = createContext();
+export const ToggleBarsUpdate = createContext();
+
 const H1 = () => {
   const { Username } = useParams()
-  return <h1>{Username}</h1>
+  if (Username !== undefined) {
+  return <h2>{Username}</h2>
+  } else {
+    return <h2>Average of all users</h2>
+  }
 }
 
 function App() {
@@ -38,27 +49,44 @@ function App() {
     const filteredData = filterData(mockData, filtered)
     return calculateAveragePerAssignment(filteredData, assignments)
   }
+  const [toggleB, setToggleB] = useState(
+    {
+      difficulty: true, 
+      fun: true,
+      lineChart: false,
+    })
 
   return (
-    <div className="App">
-      <Router>
-        <nav>
-          <ListOfNames listOfNames={listOfNames} />
-        </nav>
-        <main>
-          <Switch>
-            <Route exact path="/:Username">
-              <H1 />
-              <ChartBar getData={getData} />
-            </Route>
-            <Route exact path='/'>
-              <H1 />
-              <ChartBar data={averages} />
-            </Route>
-          </Switch>
-        </main>
-      </Router> 
-    </div>
+    <ToggleBars.Provider value={toggleB} >
+      <ToggleBarsUpdate.Provider value={setToggleB} >
+        <div className="App">
+          <header>
+            <img src={logo} />
+            <h1>Winc Academy Dashboard</h1>
+          </header>
+          <Router>
+            <div className='container'>
+              <nav className="navigation">
+                <ToggleGraphBars />
+                <ListOfNames listOfNames={listOfNames} />
+              </nav>
+              <main className="main">
+                <Switch>
+                  <Route exact path="/:Username">
+                    <H1 />
+                    <ChartBar getData={getData} />
+                  </Route>
+                  <Route exact path='/'>
+                    <H1 />
+                    <ChartBar data={averages} />
+                  </Route>
+                </Switch>
+              </main>
+            </div>
+          </Router> 
+        </div>
+        </ToggleBarsUpdate.Provider>
+    </ToggleBars.Provider>
   );
 }
 
