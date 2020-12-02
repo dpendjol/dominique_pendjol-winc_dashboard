@@ -91,9 +91,9 @@ export const getListOfStudents = (data) => {
  * @param {String} name 
  * @returns array with array's that contain the grades per assignment from one student, name
  */
-export const filterData = (data, name) => {
+export const filterData = (data, names) => {
     return data.reduce((dataName, next) => {
-        if (next[0] === name) {
+        if (names.includes(next[0])) {
             return [...dataName, next]
         }
         return dataName;

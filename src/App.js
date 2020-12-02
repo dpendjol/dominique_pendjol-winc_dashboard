@@ -1,4 +1,3 @@
-
 import './App.css';
 import { getMockData } from './utils.js/api-client';
 
@@ -23,6 +22,7 @@ import ChartBar from './ChartBar'
 
 import logo from './logo_winc.png';
 import React, { createContext, useState } from 'react';
+import { useEffect } from 'react';
 import ToggleGraphBars from './components/ToggleGraphBars';
 
 export const ToggleBars = createContext();
@@ -42,19 +42,21 @@ function App() {
   const assignments = getAssignmentNames(mockData)
   const averages = calculateAveragePerAssignment(mockData, assignments)
   const listOfNames = getListOfStudents(mockData);
- 
-  const getData= (filtered) => {
-    const mockData = getMockData();
-    const assignments = getAssignmentNames(mockData)
-    const filteredData = filterData(mockData, filtered)
-    return calculateAveragePerAssignment(filteredData, assignments)
-  }
+
   const [toggleB, setToggleB] = useState(
     {
       difficulty: true, 
       fun: true,
       lineChart: false,
+      students: []
     })
+
+  const getData = (filtered) => {
+    const mockData = getMockData();
+    const assignments = getAssignmentNames(mockData)
+    const filteredData = filterData(mockData, filtered)
+    return calculateAveragePerAssignment(filteredData, assignments)
+  }
 
   return (
     <ToggleBars.Provider value={toggleB} >
@@ -76,9 +78,13 @@ function App() {
                     <H1 />
                     <ChartBar getData={getData} />
                   </Route>
+                  <Route exact path="/multiple">
+                    <H1 />
+                    <ChartBar selectMulti={true} getData={getData} />
+                  </Route>
                   <Route exact path='/'>
                     <H1 />
-                    <ChartBar data={averages} />
+                    <ChartBar data={averages} getData={getData} />
                   </Route>
                 </Switch>
               </main>

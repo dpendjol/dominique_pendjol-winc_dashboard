@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { ToggleBars } from './App'
 
@@ -7,7 +8,6 @@ import {
   VictoryGroup,
   VictoryBar,
   VictoryAxis,
-  VictoryZoomContainer,
   VictoryLine
 } from 'victory'
 import { ToggleBarsUpdate } from './App';
@@ -16,15 +16,19 @@ import { ToggleBarsUpdate } from './App';
  * Array of averages
  * @param {Array} data 
  */
-const ChartBar = ({data, getData}) => {
+const ChartBar = ({data, selectMulti, getData}) => {
     const currentState = useContext(ToggleBars);
     
     const {Username} = useParams()
 
-    if (data === undefined) {
-      data = getData(Username)
+    console.log(currentState.students.length)
+
+    if (data === undefined && currentState.students.length === 0) {
+      data = getData([Username])
+    } else if (currentState.students.length > 0) {
+      data = getData(currentState.students)
     }
-    
+
     return (
       <div className='chartcontainer'>
         <VictoryChart 
