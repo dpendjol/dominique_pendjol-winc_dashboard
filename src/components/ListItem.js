@@ -22,7 +22,7 @@ const ListItem = ({value}) => {
         updateState({...state, students: myArray});
     }
 
-    const link = '/' + value;
+    const link = '/assignment/' + value;
 
     return (
         <li>

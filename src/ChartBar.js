@@ -16,19 +16,16 @@ import { ToggleBarsUpdate } from './App';
  * Array of averages
  * @param {Array} data 
  */
-const ChartBar = ({data, selectMulti, getData}) => {
+const ChartBar = ({data, getData}) => {
     const currentState = useContext(ToggleBars);
     
     const {Username} = useParams()
-
-    console.log(currentState.students.length)
 
     if (data === undefined && currentState.students.length === 0) {
       data = getData([Username])
     } else if (currentState.students.length > 0) {
       data = getData(currentState.students)
     }
-
     return (
       <div className='chartcontainer'>
         <VictoryChart 
@@ -41,14 +38,14 @@ const ChartBar = ({data, selectMulti, getData}) => {
           {currentState.difficulty && !currentState.lineChart ? <VictoryBar
             sortKey="x"
             data={data}
-            x="assignment"
+            x="x"
             y="gradeDifficulty"
           />
           : null }
           { currentState.fun && !currentState.lineChart ? <VictoryBar
           sortKey="x"
             data={data}
-            x="assignment"
+            x="x"
             y="gradeFun"
           />
           : null }
@@ -56,7 +53,7 @@ const ChartBar = ({data, selectMulti, getData}) => {
         { currentState.difficulty && currentState.lineChart ? <VictoryLine
             sortKey="x"
             data={data}
-            x="assignment"
+            x="x"
             y="gradeDifficulty"
             style={{
               data: { stroke: "red", strokeWidth: 1 },
@@ -66,7 +63,7 @@ const ChartBar = ({data, selectMulti, getData}) => {
           { currentState.fun && currentState.lineChart ? <VictoryLine
             sortKey="x"
             data={data}
-            x="assignment"
+            x="x"
             y="gradeFun"
             style={{
               data: { stroke: "orange", strokeWidth: 1 },

@@ -9,8 +9,8 @@ export const convertToObject = (data) => {
         return {
             student: student,
             assignment: assignment,
-            gradeDifficulty: gradeDifficulty,
-            gradeFun: gradeFun
+            gradeDifficulty: parseInt(gradeDifficulty, 10),
+            gradeFun: parseInt(gradeFun, 10)
         };
     });
 }
@@ -21,11 +21,25 @@ export const convertToObject = (data) => {
  */
 export const getAssignmentNames = (data) => {
     return data.reduce((uniqueAssignments, next) => {
-        if (!uniqueAssignments.includes(next[1])) {
-            return [...uniqueAssignments, next[1]];
+        if (!uniqueAssignments.includes(next.assignment)) {
+            return [...uniqueAssignments, next.assignment];
         }
         return uniqueAssignments;
     },[]);
+}
+
+/**
+ * Gets a the student names that are in the data
+ * @param {Array} data
+ * @return {Array} list of students 
+ */
+export const getStudentNames = (data) => {
+    return data.reduce((uniqueStudents, next) => {
+        if (!uniqueStudents.includes(next.student)) {
+            return [...uniqueStudents, next.student];
+        }
+        return uniqueStudents;
+    },[])
 }
 
 /**
@@ -34,19 +48,36 @@ export const getAssignmentNames = (data) => {
  * @param {Array} assignments containing string of unique assignment names
  * @returns {Array} returns an array with objects containing keys: assignment, gradeDifficulty, gradeFun
  */
-export const calculateAveragePerAssignment = (data, assignments) => {
-    let myObject =[];
-    assignments.forEach(assignment => {
+export const calculateAveragePerAssignment = (data, students) => {
+    let myObject = [];
+    students.forEach(student => {
         let i = 0;
          const totals = data.reduce((total, next) => {
-            if (next.includes(assignment)) {
-                total[0] = total[0] + parseInt(next[2], 10);
-                total[1] = total[1] + parseInt(next[3], 10);
-                i = i + 1;
+            if (next.student === student) {
+                total.gradeDifficulty = total.gradeDifficulty + next.gradeDifficulty;
+                total.gradeFun = total.gradeFun + next.gradeFun;
+                i += 1;
             }
             return total;
-        }, [0, 0])
-        myObject = [...myObject, {assignment: assignment, gradeDifficulty: totals[0] / i, gradeFun: totals[1] / i}]
+        }, {gradeDifficulty: 0, gradeFun: 0})
+        myObject = [...myObject, {x: student, gradeDifficulty: totals.gradeDifficulty / i, gradeFun: totals.gradeFun / i}]
+    })
+    return myObject;
+}
+
+export const calculateAveragePerStudent = (data, assignments) => {
+    let myObject = [];
+    assignments.forEach(assignment => {
+        let i = 0;
+        const totals = data.reduce((total, next) => {
+            if (next.assignment === assignment) {
+                total.gradeDifficulty = total.gradeDifficulty + next.gradeDifficulty;
+                total.gradeFun = total.gradeFun + next.gradeFun;
+                i += 1
+            }
+            return total;
+        }, {gradeDifficulty: 0, gradeFun: 0})
+        myObject = [...myObject, {x: assignment, gradeDifficulty: totals.gradeDifficulty / i, gradeFun: totals.gradeFun / i}]
     })
     return myObject;
 }
@@ -72,30 +103,25 @@ export const buildChartBarDataSet = (data) => {
 }
 
 /**
- * Gets a the student names that are in the data
- * @param {Array} data
- * @return {Array} list of students 
- */
-export const getListOfStudents = (data) => {
-    return data.reduce((uniqueStudents, next) => {
-        if (!uniqueStudents.includes(next[0])) {
-            return [...uniqueStudents, next[0]];
-        }
-        return uniqueStudents;
-    },[])
-}
-
-/**
  * Filters out the sub-array's from the user name
  * @param {Array} data 
  * @param {String} name 
  * @returns array with array's that contain the grades per assignment from one student, name
  */
-export const filterData = (data, names) => {
+export const filterDataStudent = (data, names) => {
     return data.reduce((dataName, next) => {
-        if (names.includes(next[0])) {
+        if (names.includes(next.student)) {
             return [...dataName, next]
         }
         return dataName;
+    },[])
+}
+
+export const filterDataAssignment = (data, assignments) => {
+    return data.reduce((dataAssignment, next) => {
+        if (assignments.includes(next.assignment)) {
+            return [...dataAssignment, next]
+        }
+        return dataAssignment;
     },[])
 }
