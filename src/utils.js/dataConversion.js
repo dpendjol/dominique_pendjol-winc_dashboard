@@ -48,36 +48,36 @@ export const getStudentNames = (data) => {
  * @param {Array} assignments containing string of unique assignment names
  * @returns {Array} returns an array with objects containing keys: assignment, gradeDifficulty, gradeFun
  */
-export const calculateAveragePerAssignment = (data, students) => {
+export const calculateAveragePerAssignment = (data, assignments) => {
     let myObject = [];
-    students.forEach(student => {
+    assignments.forEach(assignment => {
         let i = 0;
          const totals = data.reduce((total, next) => {
-            if (next.student === student) {
+            if (next.assignment === assignment) {
                 total.gradeDifficulty = total.gradeDifficulty + next.gradeDifficulty;
                 total.gradeFun = total.gradeFun + next.gradeFun;
                 i += 1;
             }
             return total;
         }, {gradeDifficulty: 0, gradeFun: 0})
-        myObject = [...myObject, {x: student, gradeDifficulty: totals.gradeDifficulty / i, gradeFun: totals.gradeFun / i}]
+        myObject = [...myObject, {x: assignment, gradeDifficulty: totals.gradeDifficulty / i, gradeFun: totals.gradeFun / i}]
     })
     return myObject;
 }
 
-export const calculateAveragePerStudent = (data, assignments) => {
+export const calculateAveragePerStudent = (data, students) => {
     let myObject = [];
-    assignments.forEach(assignment => {
+    students.forEach(student => {
         let i = 0;
         const totals = data.reduce((total, next) => {
-            if (next.assignment === assignment) {
+            if (next.student === student) {
                 total.gradeDifficulty = total.gradeDifficulty + next.gradeDifficulty;
                 total.gradeFun = total.gradeFun + next.gradeFun;
                 i += 1
             }
             return total;
         }, {gradeDifficulty: 0, gradeFun: 0})
-        myObject = [...myObject, {x: assignment, gradeDifficulty: totals.gradeDifficulty / i, gradeFun: totals.gradeFun / i}]
+        myObject = [...myObject, {x: student, gradeDifficulty: totals.gradeDifficulty / i, gradeFun: totals.gradeFun / i}]
     })
     return myObject;
 }

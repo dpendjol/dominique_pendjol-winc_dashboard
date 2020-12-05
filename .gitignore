@@ -26,3 +26,4 @@ yarn-error.log*
 api-info.js
 .eslintcache
 .notes
+*.css

@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { NavLink } from 'react-router-dom'
 import { ToggleBars, ToggleBarsUpdate } from '../App';
 
-const ListItem = ({value}) => {
+const ListItem = ({value, multiple, url}) => {
     const state = useContext(ToggleBars)
     const updateState = useContext(ToggleBarsUpdate)
 
@@ -22,11 +22,13 @@ const ListItem = ({value}) => {
         updateState({...state, students: myArray});
     }
 
-    const link = '/assignment/' + value;
+    const link = `/${url}/${value}`;
 
     return (
         <li>
         <label htmlFor={value}>
+        {multiple ?
+        <>
         <input 
             type='checkbox'
             id={value}
@@ -34,9 +36,13 @@ const ListItem = ({value}) => {
             checked={state.students.includes(value)}
             onChange={handleChange}
             />
+            {value}
+        </>
+        :
             <NavLink activeClassName="current" to={link}>
                 {value}
             </NavLink>
+        }
         </label>
         </li>
         

@@ -12,31 +12,23 @@ import {
 } from './utils.js/dataConversion'
 
 import ListOfNames from './components/ListOfNames';
+import Home from './components/Home'
 
 import { 
   BrowserRouter as Router, 
   Route, 
-  useParams,
-  Switch
+  Switch,
+  NavLink
 } from 'react-router-dom'
 
 import ChartBar from './ChartBar'
 
-import logo from './logo_winc.png';
+import logo from './logo_winc_2.png';
 import React, { createContext, useState } from 'react';
 import ToggleGraphBars from './components/ToggleGraphBars';
 
 export const ToggleBars = createContext();
 export const ToggleBarsUpdate = createContext();
-
-const Title = () => {
-  const { Username } = useParams()
-  if (Username !== undefined) {
-  return <h2>{Username}</h2>
-  } else {
-    return <h2>Average of all users</h2>
-  }
-}
 
 function App() {
   // get the data
@@ -69,50 +61,84 @@ function App() {
 
   const getDataAssignment = (filtered) => {
     const filteredData = filterDataAssignment(mockObject, filtered)
-    return calculateAveragePerAssignment(filteredData, listOfNames)
+    return calculateAveragePerStudent(filteredData, listOfNames)
   }
 
   return (
     <ToggleBars.Provider value={toggleB} >
       <ToggleBarsUpdate.Provider value={setToggleB} >
+      
         <div className="App">
+        <Router>
           <header>
-            <img src={logo} />
-            <h1>Winc Academy Dashboard</h1>
+            <div className='header__imgcontainer'>
+              <img src={logo} />
+            </div>
+            {/* <h1 className='slide-left' >Winc Academy Dashboard</h1> */}
+            <div className='navigation'>
+              <nav className='navigation'>
+                <ToggleGraphBars />
+                <ul>
+                  <li><NavLink exact activeClassName="selected" to="/">Home</NavLink></li>
+                  <li><NavLink activeClassName="selected" to="/dboverview">DashboardOverview</NavLink></li>
+                  <li><NavLink activeClassName="selected" to="/perstudent">Per student routing</NavLink></li>
+                  <li><NavLink activeClassName="selected" to="/slicingdicing">SlicingDicing</NavLink></li>
+                  <li><NavLink activeClassName="selected" to="/perassignment">1 specifieke opdracht</NavLink></li>
+                </ul>
+              </nav>
+            </div>
           </header>
-          <Router>
             <div className='container'>
               <nav className="navigation">
-                <ToggleGraphBars />
-                <Switch>
-                  <Route exact path="/" >
-                    <ListOfNames listOfNames={listOfNames} />
-                  </Route>
-                  <Route path="/assignment/:Username">
-                    <ListOfNames listOfNames={assignments} />
-                  </Route>
-                </Switch>
               </nav>
               <main className="main">
+                <div className="maintitle">
+                  Dit is een title
+                </div>
+                <div className="maincontainer">
                 <Switch>
-                  <Route exact path="/user/:Username">
-                    <Title />
-                    <ChartBar getData={getDataStudent} />
-                  </Route>
-                  <Route exact path="/assignment/:Username">
-                    <ChartBar getData={getDataAssignment} />
-                  </Route>
                   <Route exact path='/'>
-                    <Title />
-                    <ChartBar data={averages1} getData={getDataStudent} />
+                    <Home />
                   </Route>
-                  <Route exact path='/data'>
-                    <Title />
+                  <Route exact path='/dboverview'>
+                    <ChartBar data={averages2}/>
+                  </Route>
+                  <Route path='/perstudent'>
+                    <div>
+                      <ListOfNames listOfNames={listOfNames} url="perstudent" />
+                    </div>
+                    <Route path='/perstudent/:Username'>
+                     <div>
+                        <ChartBar getData={getDataStudent} />
+                      </div> 
+                    </Route>
+                  </Route>
+                  <Route exact path='/slicingdicing'>
+                    <div>
+                      <ListOfNames listOfNames={listOfNames} multiple={true} />
+                    </div>
+                    <div>
+                      <ChartBar getData={getDataStudent} multiple={true}/>
+                    </div>
+                  </Route>
+                  <Route path='/perassignment'>
+                    <div>
+                      <ListOfNames listOfNames={assignments} url="perassignment" />
+                    </div>
+                    <Route path='/perassignment/:Username'>
+                      <div>
+                        <ChartBar getData={getDataAssignment} />
+                      </div> 
+                    </Route>
                   </Route>
                 </Switch>
+                </div>
               </main>
             </div>
-          </Router> 
+          </Router>
+          <footer>
+            <p>Dominique Pendjol - Eindopdracht FrontEnd WincAcademy 2020</p>
+          </footer> 
         </div>
         </ToggleBarsUpdate.Provider>
     </ToggleBars.Provider>

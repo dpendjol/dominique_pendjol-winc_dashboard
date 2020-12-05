@@ -1,56 +1,83 @@
 import React, { useContext } from 'react';
-import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { ToggleBars } from './App'
+import {useParams} from 'react-router-dom';
 
 import {
   VictoryChart,
   VictoryGroup,
   VictoryBar,
   VictoryAxis,
-  VictoryLine
+  VictoryLine,
+  VictoryContainer,
 } from 'victory'
-import { ToggleBarsUpdate } from './App';
+import { ToggleBars } from './App';
 
 /**
  * Array of averages
  * @param {Array} data 
  */
-const ChartBar = ({data, getData}) => {
-    const currentState = useContext(ToggleBars);
-    
-    const {Username} = useParams()
+const ChartBar = ({data, getData, multiple}) => { 
+  
+  const {Username} = useParams();
+  const state = useContext(ToggleBars);
 
-    if (data === undefined && currentState.students.length === 0) {
-      data = getData([Username])
-    } else if (currentState.students.length > 0) {
-      data = getData(currentState.students)
+    if (data === undefined) {
+     data = getData([Username])
+     console.log(data)
     }
+
+    if (multiple) {
+      if (state.students.length > 0) {
+        data = getData(state.students)
+      }
+      else {
+        return (<h1>no data</h1>)
+      }
+    }
+
     return (
       <div className='chartcontainer'>
         <VictoryChart 
           domainPadding={{x: [50, 25]}}
           height={150}
+          containerComponent={<VictoryContainer responsive={true}/>}
           >
-        <VictoryGroup offset={3}
+        {!state.lineChart ? 
+        <VictoryGroup offset={2}
           colorScale={["red", "orange", "red", "orange"]}
         >
-          {currentState.difficulty && !currentState.lineChart ? <VictoryBar
+          {state.difficulty ?
+          <VictoryBar
             sortKey="x"
             data={data}
+            barWidth={1}
             x="x"
             y="gradeDifficulty"
+            animate={{
+              onExit: {
+                duration: 500,
+              }
+            }}  
           />
           : null }
-          { currentState.fun && !currentState.lineChart ? <VictoryBar
+          {state.fun ?
+          <VictoryBar
           sortKey="x"
             data={data}
+            barWidth={1}
             x="x"
             y="gradeFun"
+          animate={{
+            onExit: {
+              duration: 500,
+            }
+          }}
           />
           : null }
         </VictoryGroup>
-        { currentState.difficulty && currentState.lineChart ? <VictoryLine
+        : 
+        <VictoryGroup>
+          {state.difficulty ? 
+          <VictoryLine
             sortKey="x"
             data={data}
             x="x"
@@ -58,9 +85,15 @@ const ChartBar = ({data, getData}) => {
             style={{
               data: { stroke: "red", strokeWidth: 1 },
             }}
+            animate={{
+              onExit: {
+                duration: 500,
+              }
+            }}
           />
           : null }
-          { currentState.fun && currentState.lineChart ? <VictoryLine
+          {state.fun ?
+        <VictoryLine
             sortKey="x"
             data={data}
             x="x"
@@ -68,21 +101,29 @@ const ChartBar = ({data, getData}) => {
             style={{
               data: { stroke: "orange", strokeWidth: 1 },
             }}
+            animate={{
+              onExit: {
+                duration: 500,
+              },
+            }}
           />
-          : null }
+          : null}
+        </VictoryGroup>
+        }
         <VictoryAxis
-          label="assignment"
           style={{
-            axisLabel: { padding: 20 },
-            tickLabels: {fontSize: 3, padding: 5, angle: 90},
+            axisLabel: { padding: 5 },
+            tickLabels: {fontSize: 4, padding: 1, angle: 85, textAnchor: 'start'},
             ticks: {stroke: "black", size: 5},
           }}
         />
         <VictoryAxis dependentAxis
           label="grade"
+          tickValues={[0, 1, 2, 3, 4, 5]}
           style={{
             axisLabel: { padding: 20 },
-            tickLabels: {fontSize: 5, padding: 5}
+            tickLabels: {fontSize: 5, padding: 5},
+            grid: {stroke: "lightgrey"}
           }}
         />
       </VictoryChart>

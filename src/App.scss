@@ -12,14 +12,55 @@ $primary-dark: #0069c0;
 $text-color-light: whitesmoke;
 $text-color-dark: black;
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+ul {
+    list-style: none;
+    padding: 10px;
+}
+
 body {
-    background-color: $primary-light;
+    background-color: #f3f3f3;;
 }
 
 header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    margin: 10px;
+    width: 100%;
+    background-color: white;
+    border: 1px solid rgba(0,0,0,0.3)
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    background-color: white;
+    border: 1px solid rgba(0,0,0,0.3);
+    width: 100%;
+    margin-top: 15px;
+}
+
+header ul {
+    display: flex;
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    padding-right: 10px;
+}
+
+header ul li {
+    padding-left: 10px;
+}
+
+.selected { 
+    font-weight: bolder;
 }
 
 h1 {
@@ -32,55 +73,43 @@ h1 {
 
 img {
     width: 100px;
+    margin: 10px;
 }
 
-.navigation form label {
-    display: block;
+input[type=checkbox] {
+    width: 20px;
+    height: 20px;
+    margin: 0 10px;
 }
 
-.navigation {
-    
+.maintitle {
+    width: 90%;
+    margin: 0 auto; 
+    margin-top: 15px;
+    background-color: #3a85dd;
+    border-radius: 10px 10px 0 0;
+    padding: 15px;
+    color: white;
+    border: 1px solid rgba(0,0,0,0.6);
+    border-bottom: none;
 }
 
-.studentList {
-    list-style-type: none;
-    margin: 10px 15px 0;
-    padding: 0;
-    width: 100px;
-    height: 100vh;
-}
-
-.studentList a {
-    color: $primary-dark;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.studentList a:hover {
-    color: $primary;
-}
-
-.studentList .current {
-    text-decoration: underline;
-}
-
-.main {
-    display: block;
-    width: 80vw;
-    text-align: center;
-    & h2 {
-        margin: 0;
-        padding: 0;
-        color: $primary-dark;
-    }
-}
-
-.container {
+.maincontainer {
     display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: 0 auto; 
+    background-color: white;
+    border-radius: 0 0 10px 10px;
+    border: 1px solid rgba(0,0,0,0.6);
+    border-top: none;
+}
+
+.maincontainer div:nth-child(2) {
+    flex-grow: 4P;
 }
 
 .chartcontainer {
-    background-color: white;
-    border-radius: 25px;
-    margin: 15px;
+    position: sticky;
+    top: 0px;
 }
