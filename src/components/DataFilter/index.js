@@ -1,12 +1,10 @@
 import React from 'react';
-import { useContext } from 'react';
-import { State, SetState } from '../../App';
+import { useGlobalContext } from '../AppContext/AppContext';
 
 import './DataFilter.css';
 
 const DataFilter = ({students, assignments}) => {
-  const state = useContext(State);
-  const setState = useContext(SetState);
+  const {state, setState} = useGlobalContext();
 
   const handleChange = (e) => {
     console.log(e.target.type)

@@ -1,5 +1,4 @@
 import React from 'react';
-import './ChartDisplayOptions.css';
 
 const ChartDisplayOptions = ({ state, handleChange}) => {
   return (

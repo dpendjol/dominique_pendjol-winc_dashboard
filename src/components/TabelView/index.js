@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { State } from '../../App';
+import React from 'react';
+import { useGlobalContext } from '../AppContext/AppContext';
 
 //Import custom components
 import SortingOptions from '../SortingOptions';
@@ -12,7 +12,7 @@ import './TableView.css';
 const TableView = ({data, students, assignments}) => {
 
   //define component constants
-  const state = useContext(State);
+  const state = useGlobalContext();
   const sortBy = state.sortBy;
 
   //Filter the data only if the nessary data is there

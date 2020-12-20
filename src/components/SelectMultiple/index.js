@@ -1,11 +1,10 @@
 import React, { useContext } from 'react';
-import { State, SetState } from '../../App'
+import { useGlobalContext } from '../AppContext/AppContext';
 
 import { useLocation, useRouteMatch, Redirect, Route } from 'react-router-dom';
 
 const SelectMultiple = (props) => {
-  const state = useContext(State);
-  const setState = useContext(SetState);
+  const {state, setState} = useGlobalContext();
   const location = useLocation();
   const match = useRouteMatch();
   

@@ -1,10 +1,8 @@
 import React from 'react';
-import { useContext } from 'react';
-import { State, SetState } from '../../App';
+import { useGlobalContext } from '../AppContext/AppContext';
 
 const SortingOrder = () => {
-  const state = useContext(State);
-  const setState = useContext(SetState);
+  const {state, setState} = useGlobalContext()
 
   const handleChange = (e) => {
     if (e.target.type === 'radio') {

@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React from 'react';
 import {
   BrowserRouter as Router,
   Route,
@@ -30,9 +30,7 @@ import Header from './components/Header';
 import Menu from './components/Menu';
 import Content from './components/Content';
 
-//export the state
-export const State = createContext();
-export const SetState = createContext();
+import { AppProvider } from './components/AppContext/AppContext.jsx';
 
 function App() {
   const mockData = getMockData();
@@ -40,24 +38,6 @@ function App() {
   const assignments = getAssignmentNames(mockObject)
   const studentNames = getStudentNames(mockObject);
   const averagesPerAssignment = calculateAveragePerAssignment(mockObject, assignments)
-
-  // set the initial state
-  const [state, setState] = useState(
-    {
-      difficulty: true,
-      fun: true,
-      lineChart: false,
-      filterMultiplePersons: true,
-      selectMultiple: false,
-      sortBy: 'default',
-      sortOrder: true,
-      filterByName: false,
-      filterByAssignment: false,
-      filterName: '',
-      filterAssignment: '',
-      students: []
-    }
-  )
 
   const getDataStudent = (filtered) => {
     const filteredData = filterDataStudent(mockObject, filtered)
@@ -70,8 +50,7 @@ function App() {
   }
 
   return (
-    <State.Provider value={state} >
-      <SetState.Provider value={setState} >
+    <AppProvider >
         <div className="App">
           <Router>
             <Header />
@@ -118,8 +97,7 @@ function App() {
             </main>
           </Router>
         </div>
-      </SetState.Provider>
-    </State.Provider>
+        </AppProvider>
   );
 }
 

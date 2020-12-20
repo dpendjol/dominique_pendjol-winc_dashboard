@@ -1,9 +1,9 @@
 import React from 'react';
-import { useContext } from 'react';
 import { NavLink } from 'react-router-dom'
-import { State, SetState } from '../../App';
 
 import { useRouteMatch } from 'react-router-dom';
+
+import { useGlobalContext } from '../AppContext/AppContext';
 
 import './List.css';
 
@@ -11,8 +11,7 @@ const ListItem = ({ value }) => {
   const url = useRouteMatch().path;
   const link = `${url}/${value}`;
 
-  const state = useContext(State);
-  const setState = useContext(SetState);
+  const {state, setState} = useGlobalContext();
 
   const handleChange = (e) => {
     let myArray = state.students;

@@ -1,9 +1,8 @@
-import React, { useContext } from 'react';
-import { State, SetState } from '../../App';
+import React from 'react';
+import { useGlobalContext } from '../AppContext/AppContext';
 
 const ChartDisplayType = () => {
-  const state = useContext(State);
-  const setState = useContext(SetState);
+  const {state, setState } = useGlobalContext();
 
   const handleChange = (e) => {
     if (e.target.type === 'radio') {

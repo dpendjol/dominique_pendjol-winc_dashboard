@@ -1,20 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import {
-  VictoryChart,
-  VictoryGroup,
-  VictoryAxis,
-  VictoryLine,
-  VictoryBar,
-  VictoryLegend,
-  VictoryLabel,
-} from 'victory';
-
-import { State, SetState } from '../../App';
 import ChartDisplayOptions from '../ChartDisplayOptions';
 import ChartDisplayType from '../ChartDisplayType';
+import ChartRender from '../ChartRender';
 import SortingOptions from '../SortingOptions';
+
+import { useGlobalContext } from '../AppContext/AppContext';
 
 /**
  * Array of averages
@@ -25,8 +17,7 @@ const ChartView = ({ data, getData }) => {
   const { selection } = useParams();
 
   /** GET GLOBAL STATE */
-  const state = useContext(State);
-  const setState = useContext(SetState);
+  const {state, setState} = useGlobalContext();
 
   /** ADJUST GLOBAL STATE */
   const handleChange = (e) => {
@@ -83,90 +74,13 @@ const ChartView = ({ data, getData }) => {
       <h3>Sorry, no data found. Did you select a name or assignment?</h3>
       :
       <>
-      {isDisplaySelected &&
-        <VictoryChart
-          domainPadding={{ x: [50, 25] }}
-          height={200}
-          width={600}
-          style={{ parent: { maxWidth: "100%" } }}
-        >
-          <VictoryLegend
-            x={150}
-            y={10}
-            height={800}
-            orientation="horizontal"
-            style={{ border: { stroke: "black" }, title: { fontSize: 8 } }}
-            data={legend}
-            labelComponent={<VictoryLabel style={{ fontSize: 8 }} />}
-          />
-          {!state.lineChart ?
-            <VictoryGroup offset={4}>
-            {state.difficulty ?
-              <VictoryBar
-                sortKey={sortingArray}
-                data={data}
-                barWidth={3}
-                style={{ data: { fill: "navy" } }}
-                x="x"
-                y="gradeDifficulty"
-              />
-              : null}
-            {state.fun ?
-              <VictoryBar
-                sortKey={sortingArray}
-                data={data}
-                barWidth={3}
-                style={{ data: { fill: "royalblue" } }}
-                x="x"
-                y="gradeFun"
-              />
-              : null}
-          </VictoryGroup>
-            :
-            <VictoryGroup>
-              {state.difficulty ?
-                <VictoryLine
-                  sortKey={sortingArray}
-                  data={data}
-                  x="x"
-                  y="gradeDifficulty"
-                  style={{
-                    data: { stroke: "navy", strokeWidth: 0.5 },
-                  }}
-                />
-                : null}
-              {state.fun ?
-                <VictoryLine
-                  sortKey={sortingArray}
-                  data={data}
-                  x="x"
-                  y="gradeFun"
-                  style={{
-                    data: { stroke: "royalblue", strokeWidth: 0.5 },
-                  }}
-                />
-                : null}
-            </VictoryGroup>
-          }
-          {/* X-as */}
-          <VictoryAxis
-            style={{
-              axisLabel: { padding: 5 },
-              tickLabels: { fontSize: 6, padding: 1, angle: 85, textAnchor: 'start' },
-              ticks: { stroke: "black", size: 5 },
-            }}
-          />
-          {/* Y-as */}
-          <VictoryAxis dependentAxis
-            tickValues={[0, 1, 2, 3, 4, 5]}
-            style={{
-              axisLabel: { padding: 20 },
-              tickLabels: { fontSize: 6, padding: 5 },
-              grid: { stroke: "lightgrey" }
-            }}
-          />
-        </VictoryChart>
-      }
+      <ChartRender 
+      state={state}
+      isDisplaySelected={isDisplaySelected}
+      legend={legend}
+      sortingArray={sortingArray}
+      data={data}
+      />
 
       {/** OPTIES VOOR DE CHARTBAR !! */}
       <ChartDisplayOptions state={state} handleChange={handleChange} />
