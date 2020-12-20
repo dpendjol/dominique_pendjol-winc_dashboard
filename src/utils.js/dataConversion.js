@@ -98,6 +98,7 @@ export const buildChartBarDataSet = (data) => {
                 x: item.assignment, 
                 y: item.gradeFun}
             ] 
+        return undefined;
         })
     return {difficulty: difficulty, fun: fun}
 }

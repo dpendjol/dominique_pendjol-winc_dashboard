@@ -1,0 +1,21 @@
+header {
+  position: sticky;
+  top: 0px;
+  width: 100%;
+  background-color: white;
+  border: 1px solid rgba(0,0,0,0.3);
+  & .navigation {
+    display: flex;
+    justify-content: space-between;
+    width: 200px;
+    margin: 0 auto;
+  }
+}
+
+.headercontainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin: 0 auto;
+}

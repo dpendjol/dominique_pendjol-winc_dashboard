@@ -1,93 +1,8 @@
-/*
-Primary: 2196f3
-Primary-light: 6ec6ff
-Primary-dark: 0069c0
-Text-dark: black
-Text-light: smokewhite
-*/
 * {
   margin: 0;
   padding: 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-}
-
-ul {
-  list-style: none;
-  padding: 10px;
-}
-
-body {
-  background-color: #f3f3f3;
-}
-
-header {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  width: 100%;
-  background-color: white;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-}
-
-footer {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  height: 50px;
-  background-color: white;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  width: 100%;
-  margin-top: 15px;
-}
-
-header ul {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  margin: 0px;
-  padding: 0px;
-  list-style: none;
-  padding-right: 10px;
-}
-
-header ul li {
-  padding-left: 10px;
-}
-
-.selected {
-  font-weight: bolder;
-}
-
-h1 {
-  margin: 0 auto;
-  color: #0069c0;
-  font-size: 50px;
-  font-family: 'Karla', sans-serif;
-  text-transform: uppercase;
-}
-
-img {
-  width: 100px;
-  margin: 10px;
-}
-
-input[type=checkbox] {
-  width: 20px;
-  height: 20px;
-  margin: 0 10px;
 }
 
 .maintitle {
@@ -98,34 +13,43 @@ input[type=checkbox] {
   border-radius: 10px 10px 0 0;
   padding: 15px;
   color: white;
-  border: 1px solid rgba(0, 0, 0, 0.6);
-  border-bottom: none;
 }
 
 .maincontainer {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
   width: 90%;
   margin: 0 auto;
   background-color: white;
   border-radius: 0 0 10px 10px;
-  border: 1px solid rgba(0, 0, 0, 0.6);
-  border-top: none;
-}
-
-.maincontainer div:nth-child(2) {
-  -webkit-box-flex: 4P;
-      -ms-flex-positive: 4P;
-          flex-grow: 4P;
 }
 
 .chartcontainer {
   position: -webkit-sticky;
   position: sticky;
-  top: 0px;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  top: 50px;
+  width: 100%;
+}
+
+fieldset {
+  padding: 5px 0;
+  margin: 10px 0;
+}
+
+fieldset legend {
+  border-bottom: 1px solid black;
+  background-color: #3a85dd;
+  color: white;
+  padding: 2px;
+}
+
+fieldset > * {
+  display: block;
 }
 /*# sourceMappingURL=App.css.map */
