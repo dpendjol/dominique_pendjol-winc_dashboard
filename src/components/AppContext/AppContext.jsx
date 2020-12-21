@@ -16,13 +16,13 @@ const AppProvider = (props) => {
       filterName: '',
       filterByAssignment: false,
       filterAssignment: '',
-      students: []
+      students: [],
     }
   )
 
   return <AppContext.Provider value={{
     state, 
-    setState
+    setState,
     }}>{props.children}</AppContext.Provider>
 }
 

@@ -1,18 +1,17 @@
 import React from 'react';
 import { useGlobalContext } from '../AppContext/AppContext';
 
-//Import custom components
-import SortingOptions from '../SortingOptions';
-import SortingOrder from '../SortingOrder';
-import DataFilter from '../DataFilter';
-
-//Import compnent css
 import './TableView.css';
+
+//Import custom components
+import SortingOptions from '../SortingOptions/SortingOptions';
+import SortingOrder from '../SortingOrder/SortingOrder';
+import DataFilter from '../DataFilter/DataFilter';
 
 const TableView = ({data, students, assignments}) => {
 
   //define component constants
-  const state = useGlobalContext();
+  const { state } = useGlobalContext();
   const sortBy = state.sortBy;
 
   //Filter the data only if the nessary data is there
@@ -63,7 +62,7 @@ const TableView = ({data, students, assignments}) => {
   })
 
   return (
-      <div>
+      <div className='tableview__container'>
         <div>
           <SortingOptions />
           {state.sortBy !== 'default' ? 
@@ -73,9 +72,9 @@ const TableView = ({data, students, assignments}) => {
         <div>
           <DataFilter students={students} assignments={assignments} />
         </div>
-        <table>
+        <table className='tableview__table'>
             <thead>
-                <tr>
+                <tr className='tableview__headrow'>
                   <th>
                     Student name 
                   </th>
@@ -83,10 +82,10 @@ const TableView = ({data, students, assignments}) => {
                     Assignment name
                   </th>
                   <th>
-                    Cijfer voor moeilijkheid
+                    Difficulty grade
                   </th>
                   <th>
-                    Cijfer voor fun
+                    Fun grade
                   </th>
                 </tr>
             </thead>

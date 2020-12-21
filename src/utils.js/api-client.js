@@ -1,3 +1,12 @@
+/** Content API INFO */
+// const API_KEY = "" //Api key got from google cloud
+// const API_URL = "" // URL of document
+// const API_ARG = "" // values/[sheet]/[range]
+
+// export default API_URL + API_ARG + "?key=" + API_KEY
+
+/*********************************************************** */
+
 import API_ENDPOINT from './api-info';
 import { responseGoogle } from '../response/responseSpreadsheet';
 

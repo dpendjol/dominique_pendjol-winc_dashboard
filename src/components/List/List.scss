@@ -1,31 +1,33 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap");
+
 .selected {
-  font-weight: bolder;
+  font-weight: bold;
 }
 
-.menu {
-  min-width: 210px;
-  max-width: 250px;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  &__content {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
+.list__items {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
 
-.link,
-.input-item {
-  display: block;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  &:hover {
-    background-color: #3a85dd;
-  }
-  width: 100%;
-  padding-left: 15px;
-  color: black;
+.list__set {
+  margin: 0;
+}
+
+.list__link {
   text-decoration: none;
+  color: black;
 }
 
-.link-text {
-  display: inline;
+.list__link:hover {
+  font-style: italic;
+  font-weight: bold;
+}
+
+.list__set {
+  margin-top: 15px;
+}
+
+.list__set legend {
+  font-weight: bold;
 }

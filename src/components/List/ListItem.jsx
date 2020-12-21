@@ -5,8 +5,6 @@ import { useRouteMatch } from 'react-router-dom';
 
 import { useGlobalContext } from '../AppContext/AppContext';
 
-import './List.css';
-
 const ListItem = ({ value }) => {
   const url = useRouteMatch().path;
   const link = `${url}/${value}`;
@@ -32,7 +30,7 @@ const ListItem = ({ value }) => {
     <>
       <label htmlFor={value}>
         {state.selectMultiple ?
-          <li className="input-item">
+          <li className='list__item'>
             <input
               type='checkbox'
               id={value}
@@ -43,8 +41,8 @@ const ListItem = ({ value }) => {
             {value}
           </li>
           :
-          <NavLink activeClassName="selected" className="link" to={link}>
-          <li className="link-text">
+          <NavLink activeClassName='selected' className='list__link' to={link}>
+          <li className='list__item'>
             {value}
           </li>
           </NavLink>

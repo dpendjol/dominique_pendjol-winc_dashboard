@@ -1,6 +1,16 @@
 import React from 'react';
+import { useGlobalContext } from '../AppContext/AppContext';
 
-const ChartDisplayOptions = ({ state, handleChange}) => {
+const ChartDisplayOptions = () => {
+  const {state, setState} = useGlobalContext();
+
+  const handleChange = (e) => {
+    const {name, type} = e.target;
+    if (type === "checkbox") {
+      setState({ ...state, [name]: !state[name] })
+    } 
+  }
+
   return (
     <div className='ChartDisplayOptions'>
       <fieldset>

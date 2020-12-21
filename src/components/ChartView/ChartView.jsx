@@ -1,34 +1,24 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 
-import ChartDisplayOptions from '../ChartDisplayOptions';
-import ChartDisplayType from '../ChartDisplayType';
+import ChartDisplayOptions from '../ChartDisplayOptions/ChartDisplayOptions';
+import ChartDisplayType from '../ChartDisplayType/ChartDisplayType';
 import ChartRender from '../ChartRender';
-import SortingOptions from '../SortingOptions';
+import SortingOptions from '../SortingOptions/SortingOptions';
 
 import { useGlobalContext } from '../AppContext/AppContext';
 
+import './ChartView.css';
+
 /**
- * Array of averages
- * @param {Array} data 
+
  */
 const ChartView = ({ data, getData }) => {
 
   const { selection } = useParams();
-
-  /** GET GLOBAL STATE */
-  const {state, setState} = useGlobalContext();
-
-  /** ADJUST GLOBAL STATE */
-  const handleChange = (e) => {
-    if (e.target.type === "checkbox") {
-      setState({ ...state, [e.target.name]: !state[e.target.name] })
-    }
-
-    if (e.target.type === 'radio') {
-      setState({ ...state, sortBy: e.target.value })
-    } 
-  }
+  const { state } = useGlobalContext();
+  const path = useRouteMatch().path
 
   /** SET SORTING ARRAY */
   const sortingArray = [];
@@ -53,10 +43,10 @@ const ChartView = ({ data, getData }) => {
   /* Check what has to be displayed in the legend */
   const legend = [];
   if (state.difficulty) {
-    legend.push({ name: "gradeDifficulty", symbol: { fill: "navy" } })
+    legend.push({ name: 'gradeDifficulty', symbol: { fill: 'navy' } })
   }
   if (state.fun) {
-    legend.push({ name: "gradeFun", symbol: { fill: "royalblue" } })
+    legend.push({ name: 'gradeFun', symbol: { fill: 'royalblue' } })
   }
 
   // check data
@@ -69,27 +59,28 @@ const ChartView = ({ data, getData }) => {
   const isDisplaySelected = state.difficulty || state.fun ? true : false;
 
   return (
-    <div className='chartcontainer'>
+    <div className='chart__container'>
       {!isDataCheck || (state.selectMultiple && (state.students.length <= 0)) ?   
-      <h3>Sorry, no data found. Did you select a name or assignment?</h3>
+        <h3>Please select a {path === '/perstudent' ? 'student' : 'assignment'}</h3>
       :
-      <>
-      <ChartRender 
-      state={state}
-      isDisplaySelected={isDisplaySelected}
-      legend={legend}
-      sortingArray={sortingArray}
-      data={data}
-      />
+        <>
+        <ChartRender 
+        state={state}
+        isDisplaySelected={isDisplaySelected}
+        legend={legend}
+        sortingArray={sortingArray}
+        data={data}
+        />
 
-      {/** OPTIES VOOR DE CHARTBAR !! */}
-      <ChartDisplayOptions state={state} handleChange={handleChange} />
-      
-      <ChartDisplayType />
-      {/** SORTEREN VOOR DE CHARTBAR !! */}
-      <SortingOptions />
-      </>
-          }
+        {/** OPTIES VOOR DE CHARTBAR !! */}
+        <ChartDisplayOptions />
+        
+        <ChartDisplayType />
+
+        {/** SORTEREN VOOR DE CHARTBAR !! */}
+        <SortingOptions />
+        </>
+      }
     </div>
   )
 }

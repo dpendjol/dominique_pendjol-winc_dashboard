@@ -5,8 +5,6 @@ import {
   Switch,
 } from 'react-router-dom';
 
-// import css
-import './App.css';
 //import mockData
 import { getMockData } from './utils.js/api-client';
 
@@ -22,17 +20,16 @@ import {
 } from './utils.js/dataConversion'
 
 //Import components
-import ListItems from './components/List/ListItems';
-import Home from './components/Home';
-import TabelView from './components/TabelView';
-import ChartView from './components/ChartView';
-import Header from './components/Header';
-import Menu from './components/Menu';
-import Content from './components/Content';
-
-import { AppProvider } from './components/AppContext/AppContext.jsx';
+import ListItems from './components/List/ListItems.jsx';
+import TabelView from './components/TabelView/TabelView.jsx';
+import ChartView from './components/ChartView/ChartView.jsx';
+import Header from './components/Header/Header.jsx';
+import Main from './components/Main/Main';
+import Menu from './components/Menu/Menu';
+import Content from './components/Content/Content.jsx';
 
 function App() {
+
   const mockData = getMockData();
   const mockObject = convertToObject(mockData)
   const assignments = getAssignmentNames(mockObject)
@@ -50,12 +47,11 @@ function App() {
   }
 
   return (
-    <AppProvider >
         <div className="App">
           <Router>
             <Header />
-            <main className="maincontainer">
-              <Menu>
+            <Main>
+              <Menu> 
                 <Switch>
                   <Route path='/perstudent'>
                     <ListItems listValues={studentNames}/>
@@ -68,13 +64,10 @@ function App() {
               <Content>
                 <Switch>
                   <Route exact path='/'>
-                    <Home />
+                    <ChartView data={averagesPerAssignment} />
                   </Route>
                   <Route exact path='/tableview'>
                     <TabelView data={mockObject} students={studentNames} assignments={assignments} />
-                  </Route>
-                  <Route exact path='/dboverview'>
-                    <ChartView data={averagesPerAssignment} />
                   </Route>
                   <Route path='/perstudent'>
                     <Route exact path='/perstudent'>
@@ -94,10 +87,9 @@ function App() {
                   </Route>
                 </Switch>
               </Content>
-            </main>
+            </Main>
           </Router>
         </div>
-        </AppProvider>
   );
 }
 

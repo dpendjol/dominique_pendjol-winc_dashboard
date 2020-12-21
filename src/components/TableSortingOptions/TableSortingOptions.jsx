@@ -5,8 +5,9 @@ const TableSortingOptions = () => {
   const {state, setState} = useGlobalContext();
 
   const handleChange = (e) => {
-    if (e.target.type === 'radio') {
-      setState({ ...state, sortBy: e.target.value })
+    const {type, value} = e.target;
+    if (type === 'radio') {
+      setState({ ...state, sortBy: value })
     } 
   }
 

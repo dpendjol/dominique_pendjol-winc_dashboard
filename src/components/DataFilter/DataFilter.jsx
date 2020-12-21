@@ -1,17 +1,17 @@
 import React from 'react';
 import { useGlobalContext } from '../AppContext/AppContext';
 
-import './DataFilter.css';
-
 const DataFilter = ({students, assignments}) => {
   const {state, setState} = useGlobalContext();
 
   const handleChange = (e) => {
-    console.log(e.target.type)
-    if (e.target.type === 'select-one') {
-      setState({...state, [e.target.name]: e.target.value})
-    } else if (e.target.type === 'checkbox') {
-      setState({...state, [e.target.name]: !state[e.target.name]})
+    const {name, value, type} = e.target;
+
+    console.log(type)
+    if (type === 'select-one') {
+      setState({...state, [name]: value})
+    } else if (type === 'checkbox') {
+      setState({...state, [name]: !state[name]})
     };
   };
 

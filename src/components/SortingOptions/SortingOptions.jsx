@@ -1,15 +1,15 @@
 import React from 'react';
-import { useContext } from 'react';
 import { Route } from 'react-router-dom'
 import { useGlobalContext } from '../AppContext/AppContext';
-import TableSortingOptions from '../TableSortingOptions';
+import TableSortingOptions from '../TableSortingOptions/TableSortingOptions';
 
 const SortingOptions = () => {
   const {state, setState} = useGlobalContext();
 
   const handleChange = (e) => {
-    if (e.target.type === 'radio') {
-      setState({ ...state, sortBy: e.target.value })
+    const {type, value} = e.target;
+    if (type === 'radio') {
+      setState({ ...state, sortBy: value })
     } 
   }
 

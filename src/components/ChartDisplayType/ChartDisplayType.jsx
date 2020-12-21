@@ -5,13 +5,14 @@ const ChartDisplayType = () => {
   const {state, setState } = useGlobalContext();
 
   const handleChange = (e) => {
-    if (e.target.type === 'radio') {
+    const {type} = e.target;
+    if (type === 'radio') {
       setState({ ...state, lineChart: !state.lineChart })
     } 
   }
 
   return (
-    <div>
+    <div className="ChartDisplayType">
       <fieldset>
         <legend>Display data with</legend>
         <label htmlFor='rbBar'>

@@ -1,7 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useGlobalContext } from '../AppContext/AppContext';
 
 import { useLocation, useRouteMatch, Redirect, Route } from 'react-router-dom';
+
+import './SelectMultiple.css';
 
 const SelectMultiple = (props) => {
   const {state, setState} = useGlobalContext();
@@ -13,17 +15,17 @@ const SelectMultiple = (props) => {
   const url = match.path;
   
   const handleChange = (e) => {
-    const objecten = e.target.checked ? 
-    // Set the arrray when we select a 
-      {[e.target.name]: !state.[e.target.name], students: [studentName]}
+    const {name, checked} = e.target;
+    const objecten = checked ? 
+      {[name]: !state.[name], students: [studentName]}
     :
-      {[e.target.name]: !state.[e.target.name], students: []}
+      {[name]: !state.[name], students: []}
     setState({ ...state, ...objecten})
   }
 
   return (
     <>
-    <div className='settings__content'>
+    <div className='selectmultiple__container'>
       <label htmlFor='selectMultiple'>
         <input
           type='checkbox'

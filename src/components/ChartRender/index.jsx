@@ -18,14 +18,14 @@ const ChartRender = (props) => {
           domainPadding={{ x: [50, 25] }}
           height={200}
           width={600}
-          style={{ parent: { maxWidth: "100%" } }}
+          style={{ parent: { maxWidth: '100%' } }}
         >
           <VictoryLegend
             x={150}
             y={10}
             height={800}
-            orientation="horizontal"
-            style={{ border: { stroke: "black" }, title: { fontSize: 8 } }}
+            orientation='horizontal'
+            style={{ border: { stroke: 'black' }, title: { fontSize: 8 } }}
             data={props.legend}
             labelComponent={<VictoryLabel style={{ fontSize: 8 }} />}
           />
@@ -36,9 +36,9 @@ const ChartRender = (props) => {
                 sortKey={props.sortingArray}
                 data={props.data}
                 barWidth={3}
-                style={{ data: { fill: "navy" } }}
-                x="x"
-                y="gradeDifficulty"
+                style={{ data: { fill: 'navy' } }}
+                x='x'
+                y='gradeDifficulty'
               />
               : null}
             {props.state.fun ?
@@ -46,9 +46,9 @@ const ChartRender = (props) => {
                 sortKey={props.sortingArray}
                 data={props.data}
                 barWidth={3}
-                style={{ data: { fill: "royalblue" } }}
-                x="x"
-                y="gradeFun"
+                style={{ data: { fill: 'royalblue' } }}
+                x='x'
+                y='gradeFun'
               />
               : null}
           </VictoryGroup>
@@ -58,10 +58,10 @@ const ChartRender = (props) => {
                 <VictoryLine
                   sortKey={props.sortingArray}
                   data={props.data}
-                  x="x"
-                  y="gradeDifficulty"
+                  x='x'
+                  y='gradeDifficulty'
                   style={{
-                    data: { stroke: "navy", strokeWidth: 0.5 },
+                    data: { stroke: 'navy', strokeWidth: 0.5 },
                   }}
                 />
                 : null}
@@ -69,10 +69,10 @@ const ChartRender = (props) => {
                 <VictoryLine
                   sortKey={props.sortingArray}
                   data={props.data}
-                  x="x"
-                  y="gradeFun"
+                  x='x'
+                  y='gradeFun'
                   style={{
-                    data: { stroke: "royalblue", strokeWidth: 0.5 },
+                    data: { stroke: 'royalblue', strokeWidth: 0.5 },
                   }}
                 />
                 : null}
@@ -83,7 +83,7 @@ const ChartRender = (props) => {
             style={{
               axisLabel: { padding: 5 },
               tickLabels: { fontSize: 6, padding: 1, angle: 85, textAnchor: 'start' },
-              ticks: { stroke: "black", size: 5 },
+              ticks: { stroke: 'black', size: 5 },
             }}
           />
           {/* Y-as */}
@@ -92,7 +92,7 @@ const ChartRender = (props) => {
             style={{
               axisLabel: { padding: 20 },
               tickLabels: { fontSize: 6, padding: 5 },
-              grid: { stroke: "lightgrey" }
+              grid: { stroke: 'lightgrey' }
             }}
           />
         </VictoryChart>

@@ -5,7 +5,8 @@ const SortingOrder = () => {
   const {state, setState} = useGlobalContext()
 
   const handleChange = (e) => {
-    if (e.target.type === 'radio') {
+    const {type} = e.target;
+    if (type === 'radio') {
       setState({ ...state, sortOrder: !state.sortOrder })
     } 
   }
