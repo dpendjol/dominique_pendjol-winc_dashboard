@@ -1,3 +1,6 @@
+# Live view on NetLify
+https://nifty-rosalind-fc63ec.netlify.app/perassignment[https://nifty-rosalind-fc63ec.netlify.app/perassignment]
+
 # Notes about Winc Student Dashboard
 
 - mockdata is provided in de response folder
